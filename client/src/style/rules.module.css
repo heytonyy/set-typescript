@@ -1,0 +1,19 @@
+.drawer {
+    border: 1px solid #ccc;
+    color: dodgerblue;
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 8px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggleOpen {
+    height: 100%;
+}
+
+.toggleClose {
+    height: 0%;
+}
