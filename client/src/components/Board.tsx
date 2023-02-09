@@ -1,77 +1,18 @@
-import { useCallback } from "react"
+import { useEffect } from "react"
 import Card from "./Card"
 import styles from "../style/game.module.css"
 import { useGame } from "../context/gameContext"
-import { CardType, GameActionType } from "../types/types"
+import { GameActionType } from "../types/types"
+import { SetTest } from "../context/gameControls"
 
-// returns a string of the prop(s) that dont pass the set test, returns false if passed
-const SetTest = (cards: CardType[], prop: string) => {
-    if (prop === 'number') {
-        const propArr = cards.map(card => card.number)
-        const numSum = propArr.reduce((runningSum, el) => runningSum + el, 0)
-        // validator --> sets only have a numSum of 3, 6 or 9
-        if (!(numSum === 3 || numSum === 6 || numSum === 9)) {
-            return ` ${prop}`
-        }
-    }
-    if (prop === 'color') {
-        const propArr = cards.map(card => card.color)
-        const propMap = new Map()
-        for (const prop of propArr) {
-            if (propMap.has(prop)) {
-                let curr = propMap.get(prop)
-                propMap.set(prop, curr + 1)
-            } else {
-                propMap.set(prop, 1)
-            }
-        }
-        // validator --> sets only have 1 or 3 of the same props (keys in dict != 2)
-        if (propMap.keys.length === 2) {
-            return ` ${prop}`
-        }
-    }
-    if (prop === 'fill') {
-        const propArr = cards.map(card => card.fill)
-        const propMap = new Map()
-        for (const prop of propArr) {
-            if (propMap.has(prop)) {
-                let curr = propMap.get(prop)
-                propMap.set(prop, curr + 1)
-            } else {
-                propMap.set(prop, 1)
-            }
-        }
-        // validator --> sets only have 1 or 3 of the same props (keys in dict != 2)
-        if (propMap.keys.length === 2) {
-            return ` ${prop}`
-        }
-    }
-    if (prop === 'shape') {
-        const propArr = cards.map(card => card.shape)
-        const propMap = new Map()
-        for (const prop of propArr) {
-            if (propMap.has(prop)) {
-                let curr = propMap.get(prop)
-                propMap.set(prop, curr + 1)
-            } else {
-                propMap.set(prop, 1)
-            }
-        }
-        // validator --> sets only have 1 or 3 of the same props (keys in dict != 2)
-        if (propMap.keys.length === 2) {
-            return ` ${prop}`
-        }
-    }
-    return 'Passed!'
-}
 
 const Board = () => {
     const { state, dispatch } = useGame()
     const { gameStart, boardCards, selectedCards, message, messageColor } = state
 
-    const UpdateBoard = useCallback(() => {
+    useEffect(() => {
         if (selectedCards.length === 3) {
-            const newSelected = state.selectedCards
+            const newSelected = [...state.selectedCards]
             let newMessage = state.message
             const ogScore = state.score // to calc diff
             let newScore = state.score
@@ -95,7 +36,7 @@ const Board = () => {
                 newMessage += `Great job! That's a set!`
                 newMessageColor = true
             } else {
-                newMessage += `CONDITIONS FAILED: ${failed}`
+                newMessage += `CONDITION(S) FAILED: ${failed}`
                 newMessageColor = false
             }
             dispatch({
@@ -133,19 +74,6 @@ const Board = () => {
             }, 1500)
         }
     }, [selectedCards])
-
-    // every time selectedCards changes, check for set if selectedCards is three
-    // const checkForSet = useCallback(() => {
-    //     if (selectedCards.length === 3) {
-    //         UpdateBoard()
-    //     }
-    // }, [selectedCards])
-
-    // useEffect(() => {
-    //     if (selectedCards.length === 3) {
-    //         UpdateBoard()
-    //     }
-    // }, [selectedCards])
 
     return (
         <>

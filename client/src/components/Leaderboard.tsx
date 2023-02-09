@@ -14,7 +14,8 @@ const Leaderboard = ({ setWinnerInput }: LeaderboardProps) => {
     const { score } = state
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/leaderboard/")
+        const base_url = process.env.REACT_APP_BASE_URL
+        axios.get(`${base_url}/api/leaderboard/`)
             .then(res => {
                 const leaderboard = res.data
                 setLeaderboard(leaderboard)
