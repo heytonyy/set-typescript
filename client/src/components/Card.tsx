@@ -2,9 +2,7 @@ import { useState, useEffect } from "react"
 import styles from "../style/game.module.css"
 import ShapeSVG from "./ShapeSVG"
 import { useGame } from "../context/gameContext"
-import { ToggleSelectCard } from "../context/gameControls"
-import { CardType } from "../types/types"
-
+import { CardType, GameActionType } from "../types/types"
 import "animate.css"
 
 interface CardProps {
@@ -12,12 +10,29 @@ interface CardProps {
 }
 
 const Card = ({ card }: CardProps) => {
-    const { state } = useGame()
+    const { state, dispatch } = useGame()
     const { selectedCards, deck } = state
 
     const [isActive, setActive] = useState(false)
     const [isBlinking, setBlinking] = useState(false)
     const [deckCheck, setDeckCheck] = useState(deck.length) // used to clear isActive when board is reset
+
+    const ToggleSelectCard = (card: CardType, action: string) => {
+        const selectedCopy = state.selectedCards
+        let newSelected: CardType[] = []
+        if (action === 'ADD') {
+            newSelected = [...selectedCopy, card]
+        }
+        if (action === 'REMOVE') {
+            newSelected = selectedCopy.filter(p => card._id !== p._id)
+        }
+        dispatch({
+            type: GameActionType.SELECT_CARD,
+            payload: {
+                selectedCards: newSelected
+            }
+        })
+    }
 
     useEffect(() => {
         // 1.5 sec delay to match up with updateBoard --> clears isActive

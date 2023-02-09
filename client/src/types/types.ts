@@ -24,6 +24,12 @@ export type GameStateType = {
     messageColor: boolean;
 }
 
-export type GameProviderProps = {
-    children: React.ReactNode;
+export enum GameActionType {
+    TOGGLE_START = 'TOGGLE_START',
+    GAME_OVER = 'GAME_OVER',
+    LOAD_DECK = 'LOAD_DECK',
+    SET_BOARD = 'SET_BOARD',
+    SELECT_CARD = 'SELECT_CARD',
+    CHECK_FOR_SET = 'CHECK_FOR_SET',
+    UPDATE_BOARD = 'UPDATE_BOARD'
 }

@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from "react"
 import { gameReducer, GameActions } from "./gameReducer"
-import { GameStateType, GameProviderProps } from "../types/types"
+import { GameStateType } from "../types/types"
 
 const initialState = {
     gameStart: false,
@@ -20,6 +20,10 @@ const GameContext = createContext<{
     state: initialState,
     dispatch: () => null,
 })
+
+interface GameProviderProps {
+    children: React.ReactNode
+}
 
 const GameProvider = ({ children }: GameProviderProps) => {
     const [state, dispatch] = useReducer(gameReducer, initialState)
