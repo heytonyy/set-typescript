@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+@import './var.css';
+
+/* ~~~~~~~~~~~ */
+/* GLOBAL */
+/* ~~~~~~~~~~~ */
+body {
+  font-family: 'Fira Code', monospace;
+}
+
+.gameWrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rulesWrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ~~~~~~~~~~~ */
+/* HEADER */
+/* ~~~~~~~~~~~ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+  max-width: 100vh;
+  margin: 0 20px;
+}
+
+.headerTitle {
+  font-weight: bolder;
+  margin: 0;
+  padding: 0;
+}
+
+.themeBtn {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* ~~~~~~~~~~~ */
+/* MENU */
+/* ~~~~~~~~~~~ */
+.menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1%;
+  max-width: 100vh;
+  margin: 0 20px;
+  background: #eee;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.menuBtn {
+  background: dodgerblue;
+  border: 1px solid #eee;
+  color: white;
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 2%;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #000;
+}
+
+.danger {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+.menuItem>p {
+  margin: 0;
+  padding: 0;
+}
+
+/* ~~~~~~~~~~~ */
+/* BOARD */
+/* ~~~~~~~~~~~ */
+.board {
+  display: flex;
+  flex-flow: row wrap;
+  background: #eee;
+  padding: 5px;
+  max-width: 100vh;
+  margin: -1px 20px 0px 20px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.card {
+  margin: 1.11%;
+  width: calc(33.33% - 10px);
+  padding-top: 20%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.cardContent {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+}
+
+svg {
+  height: 100%;
+  margin: 0 2%;
+}
+
+.clickOverlay {
+  border-radius: 10px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.selected {
+  box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.2), inset 0 0 5px 1px dodgerblue;
+}
+
+.message {
+  background: #eee;
+  text-align: center;
+  max-width: 100vh;
+  margin: -1px 20px 0px 20px;
+  padding: 1%;
+  font-weight: bold;
+  padding-top: 1%;
+  border-color: rgba(0, 0, 0, 0);
+}
+
+/* ~~~~~~~~~~~ */
+/* FOOTER */
+/* ~~~~~~~~~~~ */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px;
+  max-width: 100vh;
+  margin: 0 20px;
+}
+
+/* ~~~~~~~~~~~ */
+/* RULES */
+/* ~~~~~~~~~~~ */
+.rules {
+  max-width: 100vh;
+  margin: 0 auto;
+}
+
+.rules strong {
+  color: dodgerblue;
+  text-decoration: underline;
+}
+
+.exampleBoard {
+  display: flex;
+  background: #eee;
+  padding: 1%;
+  max-width: 100vh;
+  margin: 0 20px;
+  border-radius: 10px;
+}
+
+/* ~~~~~~~~~~~ */
+/* MEDIA QUERIES */
+/* ~~~~~~~~~~~ */
+@media (min-width: 800px) {
+  .rulesWrapper {
+    width: 800px;
+  }
+
+  .rules {
+    font-size: 18px;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .rules {
+    font-size: var(--font-rules);
+  }
+
+  ul {
+    padding-left: var(--font-md);
+  }
+}
+
+@media (min-width: 500px) {
+  .gameWrapper {
+    width: 500px;
+  }
+
+  .headerTitle {
+    font-size: 75px;
+  }
+
+  .themeBtn {
+    font-size: 50px;
+  }
+
+  .menu {
+    font-size: 18px;
+  }
+
+  .menuBtn {
+    font-size: 20px;
+  }
+
+  .menuItem>strong {
+    font-size: 20px;
+  }
+
+  .message {
+    font-size: 15px;
+  }
+
+  .footer {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .headerTitle {
+    font-size: var(--font-xl);
+  }
+
+  .themeBtn {
+    font-size: var(--font-theme);
+  }
+
+  .menu {
+    font-size: var(--font-sm);
+  }
+
+  .menuBtn {
+    font-size: var(--font-md);
+  }
+
+  .menuItem>strong {
+    font-size: var(--font-md);
+  }
+
+  .message {
+    font-size: var(--font-3);
+  }
+
+  .footer {
+    font-size: var(--font-xs);
+  }
+}

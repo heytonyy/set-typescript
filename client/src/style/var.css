@@ -1,0 +1,24 @@
+/* CSS VARIABLES */
+/* here bc its not a module.css file */
+
+:root {
+    --font-1half: 1.5vw; 
+    --font-xs: 2vw;
+    --font-3: 3vw;
+    --font-sm: 3.5vw;
+    --font-md: 4vw;
+    --font-lg: 5vw;
+    --font-xl: 15vw;
+    --font-theme: 10vw;
+    --font-rules: 2.25vw;
+}
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
