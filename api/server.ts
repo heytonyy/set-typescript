@@ -14,6 +14,12 @@ const PORT = process.env.PORT || 3000
 
 // DB CONNECTION
 mongoose.connect(process.env.MONGO_URI as string)
+    .then(() => {
+        console.log('Connected to database ')
+    })
+    .catch((err: any) => {
+        console.error(`Error connecting to the database. \n${err}`);
+    });
 
 // MIDDLEWARE
 app.use(express.json())
