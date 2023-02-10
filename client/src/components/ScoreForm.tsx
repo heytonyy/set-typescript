@@ -23,7 +23,7 @@ const ScoreForm = ({ setHasNotSubmited }: ScoreFormProps) => {
         }
         // axios post to add score to leaderboard
         const base_url = process.env.REACT_APP_BASE_URL
-        axios.post(`${base_url}api/leaderboard/new`, body)
+        axios.post(`/api/leaderboard/new`, body)
             .then(res => {
                 setInitials('')
                 setHasNotSubmited(false)

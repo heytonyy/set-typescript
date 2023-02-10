@@ -1,6 +1,5 @@
 // import mongoose
 import { Schema, model } from "mongoose";
-import { ObjectId } from "mongodb"
 
 const CardSchema = new Schema<Card>({
     number: {
@@ -18,13 +17,10 @@ const CardSchema = new Schema<Card>({
 }, { timestamps: true })
 
 interface Card {
-    _id?: ObjectId,
     number: number,
     shape: string,
     color: string,
     fill: string,
-    createdAt?: Date,
-    updatedAt?: Date
 }
 
 const CardModel = model<Card>("Card", CardSchema)

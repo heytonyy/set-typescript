@@ -22,7 +22,7 @@ const FetchDeck = () => {
     useEffect(() => {
         if (deck.length === 0 && !gameStart) {
             const base_url = process.env.REACT_APP_BASE_URL
-            axios.get(`${base_url}/api/cards/`)
+            axios.get(`/api/cards/`)
                 .then(res => {
                     const deckData = Shuffle(res.data)
                     LoadDeck(deckData)

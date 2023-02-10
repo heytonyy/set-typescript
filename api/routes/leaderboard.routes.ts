@@ -9,7 +9,7 @@ router.get("/", async (req: Request, res: Response) => {
         const allScores = await LeaderboardModel.find().limit(8).sort({score: -1}).sort({createdAt: -1}) as Leaderboard[];
         res.status(200).send(allScores);
     } catch (err) {
-        console.log(err)
+        res.status(500).send(err);
     }
 });
 
@@ -19,7 +19,7 @@ router.post("/new", async (req: Request, res: Response) => {
         const newScore = await LeaderboardModel.create(req.body) as Leaderboard;
         res.status(200).send(newScore);
     } catch(err) {
-        console.log(err)
+        res.status(500).send(err);
     }
 });
 

@@ -1,9 +1,9 @@
 // DEPENDANCIES
 import express, { Express } from "express"
 import cors from "cors"
+import mongoose from "mongoose"
 import cardRoutes from "./routes/card.routes"
 import leaderboardRoutes from "./routes/leaderboard.routes"
-import "./config/mongoose.config"
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,12 +12,15 @@ dotenv.config();
 const app: Express = express()
 const PORT = process.env.PORT || 3000
 
-//MIDDLEWARE
+// DB CONNECTION
+mongoose.connect(process.env.MONGO_URI as string)
+
+// MIDDLEWARE
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-//ROUTES
+// ROUTES
 app.use('/api/leaderboard', leaderboardRoutes)
 app.use('/api/cards', cardRoutes)
 
