@@ -13,7 +13,8 @@ const app: Express = express()
 const PORT = process.env.PORT || 3000
 
 // DB CONNECTION
-mongoose.connect(process.env.MONGO_URI as string)
+const db = process.env.MONGO_URI as string || 'mongodb://localhost/set_db'
+mongoose.connect(db)
     .then(() => {
         console.log('Connected to database ')
     })
