@@ -1,8 +1,9 @@
 // DEPENDANCIES
-import express, { Express } from "express"
+import express, { Express, Request, Response } from "express"
 import cors from "cors"
 import mongoose from "mongoose"
 import cardRoutes from "./routes/card.routes"
+import { CardModel, Card } from "./models/card.model"
 import leaderboardRoutes from "./routes/leaderboard.routes"
 import dotenv from 'dotenv';
 
@@ -28,8 +29,16 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // ROUTES
+// app.use('/api/cards', cardRoutes)
+app.get("/api/cards", async (req: Request, res: Response) => {
+    try {
+        const cards = await CardModel.find() as Card[];
+        res.status(200).send(cards);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
 app.use('/api/leaderboard', leaderboardRoutes)
-app.use('/api/cards', cardRoutes)
 
 //START APP
 app.listen(PORT, () => console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`))

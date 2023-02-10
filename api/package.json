@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node build/server.js",
     "tsc": "./node_modules/typescript/bin/tsc",
-    "postinstall": "npm run tsc",
+    "build": "tsc",
+    "postinstall": "npm run build",
     "dev": "nodemon ./server.ts"
   },
   "keywords": [],
