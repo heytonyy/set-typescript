@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react"
-import styles from "../style/game.module.css"
-import ShapeSVG from "./ShapeSVG"
+import { useState, useEffect, useCallback } from "react"
 import { useGame } from "../context/gameContext"
 import { CardType, GameActionType } from "../types/types"
+import ShapeSVG from "./ShapeSVG"
+import styles from "../style/game.module.css"
 import "animate.css"
 
-interface CardProps {
+interface ICard {
     card: CardType
 }
 
-const Card = ({ card }: CardProps) => {
+const Card = ({ card }: ICard) => {
     const { state, dispatch } = useGame()
     const { selectedCards, deck } = state
 
@@ -17,7 +17,7 @@ const Card = ({ card }: CardProps) => {
     const [isBlinking, setBlinking] = useState(false)
     const [deckCheck, setDeckCheck] = useState(deck.length) // used to clear isActive when board is reset
 
-    const ToggleSelectCard = (card: CardType, action: string) => {
+    const ToggleSelectCard = useCallback((card: CardType, action: string) => {
         const selectedCopy = state.selectedCards
         let newSelected: CardType[] = []
         if (action === 'ADD') {
@@ -32,7 +32,18 @@ const Card = ({ card }: CardProps) => {
                 selectedCards: newSelected
             }
         })
-    }
+    }, [state.selectedCards, dispatch])
+
+    const onCardClick = useCallback((card: CardType, e: React.MouseEvent) => {
+        if (selectedCards.length < 3) {
+            if ((e.target as Element).classList[1].includes("selected")) {
+                ToggleSelectCard(card, "REMOVE")
+            } else {
+                ToggleSelectCard(card, "ADD")
+            }
+            setActive(!isActive)
+        }
+    }, [selectedCards, isActive, ToggleSelectCard])
 
     useEffect(() => {
         // 1.5 sec delay to match up with updateBoard --> clears isActive
@@ -53,17 +64,6 @@ const Card = ({ card }: CardProps) => {
             setDeckCheck(deck.length)
         }
     }, [selectedCards, deck, deckCheck, isActive])
-
-    const onCardClick = (card: CardType, e: React.MouseEvent) => {
-        if (selectedCards.length < 3) {
-            if ((e.target as Element).classList[1].includes("selected")) {
-                ToggleSelectCard(card, "REMOVE")
-            } else {
-                ToggleSelectCard(card, "ADD")
-            }
-            setActive(!isActive)
-        }
-    }
 
     return (
         <div className={styles.card}>

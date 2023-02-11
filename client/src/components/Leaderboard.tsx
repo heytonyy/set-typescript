@@ -1,33 +1,34 @@
-import { useState, useEffect } from "react"
-import styles from "../style/endgame.module.css"
+import { useState, useEffect, useCallback } from "react"
 import axios from "axios"
+import styles from "../style/endgame.module.css"
 import { useGame } from "../context/gameContext"
 import { LeaderboardType } from "../types/types"
 
-interface LeaderboardProps {
+interface ILeaderboard {
     setWinnerInput: (bool: boolean) => void
 }
 
-const Leaderboard = ({ setWinnerInput }: LeaderboardProps) => {
-    const [leaderboard, setLeaderboard] = useState<LeaderboardType[]>()
+const Leaderboard = ({ setWinnerInput }: ILeaderboard) => {
+    const [leaderboard, setLeaderboard] = useState<LeaderboardType[]>([])
     const { state } = useGame()
-    const { score } = state
 
-    useEffect(() => {
-        const base_url = process.env.REACT_APP_BASE_URL
-        axios.get(`/api/leaderboard/`)
+    const getLeaderboard = useCallback(() => {
+        const BASE_URL = process.env.REACT_APP_BASE_URL
+        axios.get(`${BASE_URL}/api/leaderboard/`)
             .then(res => {
-                const leaderboard = res.data
-                setLeaderboard(leaderboard)
-                // check to see if they are in top 8
-                if (score > leaderboard[leaderboard.length - 1].score) {
+                setLeaderboard(res.data)
+                if (state.score > leaderboard[leaderboard.length - 1].score) {
                     setWinnerInput(true)
                 } else {
                     setWinnerInput(false)
                 }
             })
             .catch(err => console.log(err))
-    }, [leaderboard, score, setWinnerInput])
+    }, [leaderboard, state.score, setWinnerInput])
+
+    useEffect(() => {
+        getLeaderboard()
+    }, [getLeaderboard])
 
     return (
         <div className={styles.boardHead}>

@@ -1,5 +1,5 @@
-import { useEffect } from "react"
 import axios from "axios"
+import { useEffect, useCallback } from "react"
 import { CardType, GameActionType } from "../types/types"
 import { useGame } from "../context/gameContext"
 import { Shuffle } from "../context/gameControls"
@@ -9,7 +9,7 @@ const FetchDeck = () => {
     const { state, dispatch } = useGame()
     const { deck, gameStart } = state
 
-    const LoadDeck = (cards: CardType[]) => {
+    const LoadDeck = useCallback((cards: CardType[]) => {
         const filledDeck = cards
         dispatch({
             type: GameActionType.LOAD_DECK,
@@ -17,17 +17,21 @@ const FetchDeck = () => {
                 deck: filledDeck
             }
         })
-    }
+    }, [dispatch])
+
+    const GetDeck = useCallback(() => {
+        const BASE_URL = process.env.REACT_APP_BASE_URL
+        axios.get(`${BASE_URL}/api/cards`)
+            .then(res => {
+                const shuffledDeck = Shuffle(res.data)
+                LoadDeck(shuffledDeck)
+            })
+            .catch(err => console.log(err))
+    }, [LoadDeck])
 
     useEffect(() => {
         if (deck.length === 0 && !gameStart) {
-            const base_url = process.env.REACT_APP_BASE_URL
-            axios.get(`/api/cards/`)
-                .then(res => {
-                    const deckData = Shuffle(res.data)
-                    LoadDeck(deckData)
-                })
-                .catch(err => console.log(err))
+            GetDeck()
         }
     })
 

@@ -1,9 +1,8 @@
-import styles from "../style/game.module.css"
+import { useCountdownTimer } from 'use-countdown-timer';
+import { useCallback, useEffect } from 'react';
 import { useGame } from "../context/gameContext"
 import { GameActionType } from "../types/types"
-import { useCountdownTimer } from 'use-countdown-timer';
-import { useEffect } from 'react';
-
+import styles from "../style/game.module.css"
 
 const BoardMenu = () => {
   const { state, dispatch } = useGame()
@@ -13,7 +12,7 @@ const BoardMenu = () => {
     timer: 1000 * 60 * 10,
   });
 
-  const ToggleStart = () => {
+  const ToggleStart = useCallback(() => {
     const toggle = !state.gameStart
     dispatch({
       type: GameActionType.TOGGLE_START,
@@ -21,9 +20,9 @@ const BoardMenu = () => {
         gameStart: toggle
       }
     })
-  }
+  }, [dispatch, state.gameStart])
 
-  const SetBoard = () => {
+  const SetBoard = useCallback(() => {
     const newDeck = state.deck
     const updatedBoard = newDeck.splice(0, 12)
     dispatch({
@@ -34,9 +33,9 @@ const BoardMenu = () => {
         selectedCards: [] // need to clear selected
       }
     })
-  }
+  }, [dispatch, state.deck])
 
-  const GameOver = () => {
+  const GameOver = useCallback(() => {
     dispatch({
       type: GameActionType.GAME_OVER,
       payload: {
@@ -44,16 +43,17 @@ const BoardMenu = () => {
         gameStart: false
       }
     })
-  }
+  } , [dispatch])
 
-  const startGame = () => {
+  // turn on game
+  const startGameHandler = () => {
     start()
     ToggleStart()
     SetBoard()
   }
 
   // end condition for running out of cards
-  const drawFromDeck = () => {
+  const drawFromDeckHandler = () => {
     if (deck.length > 0) {
       SetBoard()
     } else {
@@ -65,14 +65,14 @@ const BoardMenu = () => {
     if (countdown === 0) {
       GameOver()
     }
-  }, [countdown]);
+  }, [countdown, GameOver]);
 
   return (
     <div className={styles.menu}>
       {/* GAME BUTTON -- conditionally rendered based off gameStart */}
       {
-        gameStart ? <button onClick={drawFromDeck} className={styles.menuBtn}>New Board</button>
-          : <button onClick={startGame} className={styles.menuBtn}>Start</button>
+        gameStart ? <button onClick={drawFromDeckHandler} className={styles.menuBtn}>New Board</button>
+          : <button onClick={startGameHandler} className={styles.menuBtn}>Start</button>
       }
 
       {/* DECK TOTAL */}

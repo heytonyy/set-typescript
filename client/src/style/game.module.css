@@ -34,6 +34,8 @@ body {
   font-weight: bolder;
   margin: 0;
   padding: 0;
+  text-decoration: none;
+  color: #000;
 }
 
 .themeBtn {
@@ -165,6 +167,7 @@ svg {
 .rules {
   max-width: 100vh;
   margin: 0 auto;
+  margin-top: 2rem;
 }
 
 .rules strong {

@@ -1,15 +1,16 @@
 import { useEffect } from "react"
-import Card from "./Card"
-import styles from "../style/game.module.css"
 import { useGame } from "../context/gameContext"
 import { GameActionType } from "../types/types"
 import { SetTest } from "../context/gameControls"
+import Card from "./Card"
+import styles from "../style/game.module.css"
 
 
 const Board = () => {
     const { state, dispatch } = useGame()
     const { gameStart, boardCards, selectedCards, message, messageColor } = state
 
+    // dont know how to make this memoized so the if statement makes it only render when you have 3 cards selected
     useEffect(() => {
         if (selectedCards.length === 3) {
             const newSelected = [...state.selectedCards]

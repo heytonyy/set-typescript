@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react"
-import styles from "../style/endgame.module.css"
-import {useGame} from "../context/gameContext"
+import { useGame } from "../context/gameContext"
 import ScoreForm from "./ScoreForm"
+import styles from "../style/endgame.module.css"
 
-interface ScoreCardProps {
+interface IScoreCard {
     showForm: boolean
 }
 
-const ScoreCard = ({ showForm }: ScoreCardProps) => {
+const ScoreCard = ({ showForm }: IScoreCard) => {
     const [hasNotSubmited, setHasNotSubmited] = useState<boolean>(true)
     const { state } = useGame()
     const { score } = state
 
     useEffect(() => {
-      // re-render when form submitted
+        // re-render when form submitted
     }, [hasNotSubmited])
-    
+
     return (
         <div className={styles.boardBody}>
             <div className={styles.card}>

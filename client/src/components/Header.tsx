@@ -2,14 +2,14 @@ import { useState } from "react"
 import styles from "../style/game.module.css"
 import "../style/var.css"
 
-interface HeaderProps {
+interface IHeader {
     setTheme: (theme: string) => void
 }
 
-const Header = ({ setTheme }: HeaderProps) => {
+const Header = ({ setTheme }: IHeader) => {
     const [btnText, setBtnText] = useState('🌚')
 
-    const toggleTheme = () => {
+    const toggleThemeHandler = () => {
         if (btnText === '🌚') {
             setBtnText('🌝')
             setTheme('dark')
@@ -19,10 +19,14 @@ const Header = ({ setTheme }: HeaderProps) => {
         }
     }
 
+    const backToHome = () => {
+        window.location.href = '/'
+    }
+
     return (
         <div className={styles.header}>
-            <p className={styles.headerTitle}>SET</p>
-            <button onClick={toggleTheme} className={styles.themeBtn}>{btnText}</button>
+            <p className={styles.headerTitle} onClick={backToHome}>SET</p>
+            <button onClick={toggleThemeHandler} className={styles.themeBtn}>{btnText}</button>
         </div>
     )
 }

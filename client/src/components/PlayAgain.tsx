@@ -1,11 +1,10 @@
 import styles from "../style/endgame.module.css"
 
+const playAgain = () => {
+    window.location.reload();
+}
+
 const PlayAgain = () => {
-
-    const playAgain = () => {
-        window.location.reload();
-    }
-
     return (
         <div className={styles.boardFoot}>
             <button onClick={playAgain} className={styles.playAgainBtn}>Play Again?</button>

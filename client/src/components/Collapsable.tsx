@@ -1,18 +1,18 @@
 import { useState } from 'react'
-import styles from '../style/rules.module.css'
 import { SlArrowUp } from 'react-icons/sl'
 import { motion, AnimatePresence } from 'framer-motion'
+import styles from '../style/rules.module.css'
 
-interface CollapsableProps {
+interface ICollapsable {
     label: string
     children: React.ReactNode
 }
 
-interface WrapperProps {
+interface IWrapper {
     children: React.ReactNode
 }
 
-const RulesWrapper = ({ children }: WrapperProps) => {
+const RulesWrapper = ({ children }: IWrapper) => {
     return (
         <div className={styles.rulesWrapper}>
             {children}
@@ -20,7 +20,7 @@ const RulesWrapper = ({ children }: WrapperProps) => {
     )
 }
 
-const Collapsable = ({ label, children }: CollapsableProps) => {
+const Collapsable = ({ label, children }: ICollapsable) => {
     const [open, setOpen] = useState(false)
 
     const toggle = () => {

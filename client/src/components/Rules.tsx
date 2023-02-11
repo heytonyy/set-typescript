@@ -3,49 +3,37 @@ import { CardType } from "../types/types"
 import ShapeSVG from "./ShapeSVG"
 import Collapsable from "./Collapsable"
 
+interface ICard {
+    card: CardType
+}
+
 // example endpoint response from API
 const examples = [
     {
-        "_id": "63667a744c499a4bf83afeb6",
         "number": 1,
         "shape": "diamond",
         "color": "red",
         "fill": "striped",
-        "createdAt": "2022-11-05T15:00:04.018Z",
-        "updatedAt": "2022-11-05T15:00:04.018Z",
-        "__v": 0
     },
     {
-        "_id": "63667a984c499a4bf83afebb",
         "number": 1,
         "shape": "squiggle",
         "color": "red",
         "fill": "solid",
-        "createdAt": "2022-11-05T15:00:40.615Z",
-        "updatedAt": "2022-11-05T15:00:40.615Z",
-        "__v": 0
     },
     {
-        "_id": "63667ac84c499a4bf83afec5",
         "number": 1,
         "shape": "oval",
         "color": "red",
         "fill": "open",
-        "createdAt": "2022-11-05T15:01:28.016Z",
-        "updatedAt": "2022-11-05T15:01:28.016Z",
-        "__v": 0
     }
-]
+] as CardType[]
 
-interface RulesExampleProps {
-    card: CardType
-}
-
-const RulesExample = ({ card }: RulesExampleProps) => {
+const CardExample = ({ card }: ICard) => {
     return (
         <div className={styles.card}>
             {/* div overlay with z-index=1, since below is a composite element */}
-            <div className={styles.clickOverlay} >&nbsp;</div>
+            <div className={styles.clickOverlay} ></div>
             {/* content consists of SVG of shapes (which is composed of a viewbox, path, and fill pattern) */}
             <div className={styles.cardContent}>
                 {
@@ -57,9 +45,7 @@ const RulesExample = ({ card }: RulesExampleProps) => {
     )
 }
 
-
 const Rules = () => {
-
     return (
         <div className={styles.rules}>
             <Collapsable label="Rules:">
@@ -75,7 +61,7 @@ const Rules = () => {
 
                 <div className={styles.exampleBoard}>
                     {
-                        examples.map((p, i) => <RulesExample key={i} card={p} />)
+                        examples.map((p, i) => <CardExample key={i} card={p} />)
                     }
                 </div>
 

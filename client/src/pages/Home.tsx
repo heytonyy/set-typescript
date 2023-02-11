@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react"
+import { GameProvider } from "../context/gameContext"
+import Header from "../components/Header"
 import Game from "./Game"
 import EndGame from "./EndGame"
 import Footer from "../components/Footer"
-import Header from "../components/Header"
 import Rules from "../components/Rules"
-import { GameProvider } from "../context/gameContext"
 import styles from '../style/game.module.css'
 
-
-interface WrapperProps {
+interface IWrapper {
   children: React.ReactNode
 }
 
-const GameWrapper = ({ children }: WrapperProps) => {
+const GameWrapper = ({ children }: IWrapper) => {
   return (
       <div className={styles.gameWrapper}>
           {children}
@@ -20,7 +19,7 @@ const GameWrapper = ({ children }: WrapperProps) => {
   )
 }
 
-const RulesWrapper = ({ children }: WrapperProps) => {
+const RulesWrapper = ({ children }: IWrapper) => {
   return (
       <div className={styles.rulesWrapper}>
           {children}
@@ -28,7 +27,7 @@ const RulesWrapper = ({ children }: WrapperProps) => {
   )
 }
 
-const Main = () => {
+const Home = () => {
   // state to know when to switch to EndGame view
   const [showEndGame, setShowEndGame] = useState<boolean>(false)
   const [theme, setTheme] = useState<string>('light')
@@ -55,4 +54,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Home
